@@ -1,15 +1,14 @@
 package template
 
 import (
-	"fmt"
+	cloudns "github.com/anxuanzi/libdns-cloudns"
 
 	"github.com/caddyserver/caddy/v2"
 	"github.com/caddyserver/caddy/v2/caddyconfig/caddyfile"
-	libdnstemplate "github.com/libdns/template"
 )
 
 // Provider lets Caddy read and manipulate DNS records hosted by this DNS provider.
-type Provider struct{ *libdnstemplate.Provider }
+type Provider struct{ *cloudns.Provider }
 
 func init() {
 	caddy.RegisterModule(Provider{})
@@ -18,44 +17,50 @@ func init() {
 // CaddyModule returns the Caddy module information.
 func (Provider) CaddyModule() caddy.ModuleInfo {
 	return caddy.ModuleInfo{
-		ID:  "dns.providers.template",
-		New: func() caddy.Module { return &Provider{new(libdnstemplate.Provider)} },
+		ID:  "dns.providers.cloudns",
+		New: func() caddy.Module { return &Provider{new(cloudns.Provider)} },
 	}
 }
 
-// TODO: This is just an example. Useful to allow env variable placeholders; update accordingly.
 // Provision sets up the module. Implements caddy.Provisioner.
 func (p *Provider) Provision(ctx caddy.Context) error {
-	p.Provider.APIToken = caddy.NewReplacer().ReplaceAll(p.Provider.APIToken, "")
-	return fmt.Errorf("TODO: not implemented")
+	replacer := caddy.NewReplacer()
+	p.Provider.AuthId = replacer.ReplaceAll(p.Provider.AuthId, "")
+	p.Provider.SubAuthId = replacer.ReplaceAll(p.Provider.SubAuthId, "")
+	p.Provider.AuthPassword = replacer.ReplaceAll(p.Provider.AuthPassword, "")
+	return nil
 }
 
-// TODO: This is just an example. Update accordingly.
 // UnmarshalCaddyfile sets up the DNS provider from Caddyfile tokens. Syntax:
 //
-// providername [<api_token>] {
-//     api_token <api_token>
-// }
-//
-// **THIS IS JUST AN EXAMPLE AND NEEDS TO BE CUSTOMIZED.**
+//	cloudns {
+//	    auth_id "<auth_id>"
+//	    sub_auth_id "<sub_auth_id>"
+//	    auth_password "<auth_password>"
+//	}
 func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 	for d.Next() {
-		if d.NextArg() {
-			p.Provider.APIToken = d.Val()
-		}
 		if d.NextArg() {
 			return d.ArgErr()
 		}
 		for nesting := d.Nesting(); d.NextBlock(nesting); {
 			switch d.Val() {
-			case "api_token":
-				if p.Provider.APIToken != "" {
-					return d.Err("API token already set")
-				}
+			case "auth_id":
 				if d.NextArg() {
-					p.Provider.APIToken = d.Val()
+					p.Provider.AuthId = d.Val()
+				} else {
+					return d.ArgErr()
 				}
+			case "sub_auth_id":
 				if d.NextArg() {
+					p.Provider.SubAuthId = d.Val()
+				} else {
+					return d.ArgErr()
+				}
+			case "auth_password":
+				if d.NextArg() {
+					p.Provider.AuthPassword = d.Val()
+				} else {
 					return d.ArgErr()
 				}
 			default:
@@ -63,8 +68,11 @@ func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 			}
 		}
 	}
-	if p.Provider.APIToken == "" {
-		return d.Err("missing API token")
+	if p.Provider.AuthId == "" && p.Provider.SubAuthId == "" {
+		return d.Err("missing auth id or sub auth id")
+	}
+	if p.Provider.AuthPassword == "" {
+		return d.Err("missing auth password")
 	}
 	return nil
 }
