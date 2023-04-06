@@ -1,4 +1,4 @@
-module github.com/caddy-dns/template
+module github.com/anxuanzi/caddy-dns-ClouDNS
 
 go 1.20
 

@@ -1,4 +1,4 @@
-package template
+package cloudns
 
 import (
 	cloudns "github.com/anxuanzi/libdns-cloudns"
