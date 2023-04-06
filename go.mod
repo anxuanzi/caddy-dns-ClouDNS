@@ -3,7 +3,7 @@ module github.com/anxuanzi/caddy-dns-ClouDNS
 go 1.20
 
 require (
-	github.com/anxuanzi/libdns-cloudns v0.0.0-20230406012711-4e9662b6700a
+	github.com/anxuanzi/libdns-cloudns v1.0.0
 	github.com/caddyserver/caddy/v2 v2.6.4
 )
 

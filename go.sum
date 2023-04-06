@@ -1,5 +1,7 @@
 github.com/anxuanzi/libdns-cloudns v0.0.0-20230406012711-4e9662b6700a h1:o5LAPYM2VZugzVkVEiGOGW2dAppY0ltK2YeiN54zA9A=
 github.com/anxuanzi/libdns-cloudns v0.0.0-20230406012711-4e9662b6700a/go.mod h1:48/i96sEB6jIDmA8hwDVHHCPaKVHyM8mYX2XRlx5Zhw=
+github.com/anxuanzi/libdns-cloudns v1.0.0 h1:nIHqJ+UwZK4Wtd0eTmXWfXYp4qhDOMUAFMwF7S7gbtw=
+github.com/anxuanzi/libdns-cloudns v1.0.0/go.mod h1:48/i96sEB6jIDmA8hwDVHHCPaKVHyM8mYX2XRlx5Zhw=
 github.com/benbjohnson/clock v1.1.0 h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLju8=
 github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=
 github.com/beorn7/perks v1.0.1/go.mod h1:G2ZrVWU2WbWT9wwq4/hrbKbnv/1ERSJQ0ibhJ6rlkpw=
@@ -7,6 +9,7 @@ github.com/caddyserver/caddy/v2 v2.6.4 h1:2hwYqiRwk1tf3VruhMpLcYTg+11fCdr8S3jhNA
 github.com/caddyserver/caddy/v2 v2.6.4/go.mod h1:p/PqEgaIrg249zmTLdgNMnQO4mBQ8uWYdi+TDOPwejc=
 github.com/caddyserver/certmagic v0.17.2 h1:o30seC1T/dBqBCNNGNHWwj2i5/I/FMjBbTAhjADP3nE=
 github.com/caddyserver/certmagic v0.17.2/go.mod h1:ouWUuC490GOLJzkyN35eXfV8bSbwMwSf4bdhkIxtdQE=
+github.com/cespare/xxhash v1.1.0 h1:a6HrQnmkObjyL+Gs60czilIUGqrzKutQD6XZog3p+ko=
 github.com/cespare/xxhash/v2 v2.2.0 h1:DC2CZ1Ep5Y4k3ZQ899DldepgrayRUGE6BBZ/cd9Cj44=
 github.com/cespare/xxhash/v2 v2.2.0/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XLFGgcrjCOs=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
