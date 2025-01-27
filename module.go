@@ -1,28 +1,28 @@
 package cloudns
 
 import (
-	cloudns "github.com/anxuanzi/libdns-cloudns"
+	libdnsClouDns "github.com/anxuanzi/libdns-cloudns"
 
 	"github.com/caddyserver/caddy/v2"
 	"github.com/caddyserver/caddy/v2/caddyconfig/caddyfile"
 )
 
 // Provider lets Caddy read and manipulate DNS records hosted by this DNS provider.
-type Provider struct{ *cloudns.Provider }
+type Provider struct{ *libdnsClouDns.Provider }
 
 func init() {
 	caddy.RegisterModule(Provider{})
 }
 
-// CaddyModule returns the Caddy module information.
+// CaddyModule returns the Caddy module information for the DNS provider.
 func (Provider) CaddyModule() caddy.ModuleInfo {
 	return caddy.ModuleInfo{
 		ID:  "dns.providers.cloudns",
-		New: func() caddy.Module { return &Provider{new(cloudns.Provider)} },
+		New: func() caddy.Module { return &Provider{new(libdnsClouDns.Provider)} },
 	}
 }
 
-// Provision sets up the module. Implements caddy.Provisioner.
+// Provision prepares the Provider by replacing placeholders in authentication fields with their actual values.
 func (p *Provider) Provision(ctx caddy.Context) error {
 	replacer := caddy.NewReplacer()
 	p.Provider.AuthId = replacer.ReplaceAll(p.Provider.AuthId, "")

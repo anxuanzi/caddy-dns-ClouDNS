@@ -1,55 +1,97 @@
-ClouDNS module for Caddy
-===========================
+# ClouDNS Module for Caddy
 
-This package contains a DNS provider module for [Caddy](https://github.com/caddyserver/caddy). It can be used to manage DNS records with ClouDNS.
+This package provides a DNS provider module for [Caddy](https://github.com/caddyserver/caddy). It allows you to manage DNS records with ClouDNS.
 
-## Caddy module name
+## Caddy Module Name
 
 ```
 dns.providers.cloudns
 ```
 
-## Config examples
+## Installation
 
-To use this module for the ACME DNS challenge, [configure the ACME issuer in your Caddy JSON](https://caddyserver.com/docs/json/apps/tls/automation/policies/issuer/acme/) like so:
+To install this module, add it to your Caddy configuration.
+
+## Configuration Examples
+
+### JSON Configuration
+
+To use this module for the ACME DNS challenge, configure the ACME issuer in your Caddy JSON like so:
 
 ```json
 {
-	"module": "acme",
-	"challenges": {
-		"dns": {
-			"provider": {
-				"name": "cloudns",
-				"auth_id": "CLOUDNS_AUTH_ID",
-                // or sub auth id
-                "sub_auth_id": "CLOUDNS_SUB_AUTH_ID",
-				"auth_password": "CLOUDNS_AUTH_PASSWORD"
-			}
-		}
-	}
+  "apps": {
+    "tls": {
+      "automation": {
+        "policies": [
+          {
+            "issuers": [
+              {
+                "module": "acme",
+                "challenges": {
+                  "dns": {
+                    "provider": {
+                      "name": "cloudns",
+                      "auth_id": "CLOUDNS_AUTH_ID",
+                      "sub_auth_id": "CLOUDNS_SUB_AUTH_ID",
+                      "auth_password": "CLOUDNS_AUTH_PASSWORD"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
 }
 ```
 
-or with the Caddyfile:
+### Caddyfile Configuration
+
+You can also configure the module using the Caddyfile.
+
+#### Global Configuration
 
 ```
-# globally
 {
-	acme_dns cloudns {
-        auth_id "<auth_id>"
-	    sub_auth_id "<sub_auth_id>"
-	    auth_password "<auth_password>"
-	}
+  acme_dns cloudns {
+    auth_id "<auth_id>"
+    sub_auth_id "<sub_auth_id>"
+    auth_password "<auth_password>"
+  }
 }
 ```
 
+#### Per-Site Configuration
+
 ```
-# one site
 tls {
-	dns cloudns {
-        auth_id "<auth_id>"
-	    sub_auth_id "<sub_auth_id>"
-	    auth_password "<auth_password>"
-	}
+  dns cloudns {
+    auth_id "<auth_id>"
+    sub_auth_id "<sub_auth_id>"
+    auth_password "<auth_password>"
+  }
 }
 ```
+
+## Environment Variables
+
+You can also set the following environment variables to configure the module:
+
+- `CLOUDNS_AUTH_ID`
+- `CLOUDNS_SUB_AUTH_ID`
+- `CLOUDNS_AUTH_PASSWORD`
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request on GitHub.
+
+## Acknowledgements
+
+This module is based on the [libdns](https://github.com/libdns/libdns) and [Caddy](https://github.com/caddyserver/caddy) projects.
